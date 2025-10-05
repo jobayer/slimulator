@@ -36,4 +36,4 @@ jobs:
           bin/Release/net9.0/win-x64/publish/slimulator-x64.exe
           bin/Release/net9.0/win-x86/publish/slimulator-x86.exe
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SLIMULATOR_ACTIONS }}
