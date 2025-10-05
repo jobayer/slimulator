@@ -1,0 +1,39 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Publish x64
+      run: dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:DebugType=None
+
+    - name: Rename x64 exe
+      run: Move-Item -Path "bin/Release/net9.0/win-x64/publish/slimulator.exe" -Destination "bin/Release/net9.0/win-x64/publish/slimulator-x64.exe"
+
+    - name: Publish x86
+      run: dotnet publish -c Release -r win-x86 --self-contained true -p:PublishSingleFile=true -p:DebugType=None
+
+    - name: Rename x86 exe
+      run: Move-Item -Path "bin/Release/net9.0/win-x86/publish/slimulator.exe" -Destination "bin/Release/net9.0/win-x86/publish/slimulator-x86.exe"
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          bin/Release/net9.0/win-x64/publish/slimulator-x64.exe
+          bin/Release/net9.0/win-x86/publish/slimulator-x86.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
