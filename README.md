@@ -23,7 +23,7 @@ Download the appropriate version for your system, place it in a folder, and run 
 ## Requirements
 
 - Windows (x64 or x86)
-- No additional dependencies (self-contained exe)
+- .NET 9.0 SDK (for building from source)
 
 ## Building from Source
 
@@ -44,6 +44,26 @@ If you prefer to build from source:
    ```bash
    dotnet run
    ```
+
+## Building Executables Locally
+
+Use the provided build script to generate exe files:
+
+```cmd
+REM Build for both architectures (default)
+build-exe.bat
+
+REM Build for 64-bit Windows only
+build-exe.bat --x64
+
+REM Build for 32-bit Windows only
+build-exe.bat --x86
+
+REM Show help
+build-exe.bat --help
+```
+
+The exe files will be created in the `dist/` directory.
 
 ## Usage
 
@@ -75,7 +95,7 @@ Calculate BMI
 =============
 Enter height (ft): 5.8
 Enter weight (kg): 70
-Your BMI is: 22.49 (Healthy)
+Your BMI is: 22.40 (Healthy)
 Do you want to save this record? (y/n): y
 Record saved!
 Press any key to continue...
